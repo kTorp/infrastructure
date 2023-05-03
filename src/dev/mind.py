@@ -281,7 +281,7 @@ def _get_schema():
     Returns the CSV schema of the source data files.
 
         Returns:
-            schema (pyspark.sql.types.StructType): 
+            schema (pyspark.sql.types.StructType): The CSV schema of the source data files.
     """   
     headers = ["USAGE_DTTM", "SCRAMBLED_IMSI", "Download_Type", "MCC", "MNC", "LAC", "SAC", "TAC",
                 "E_NODE_B_ID", "SECTOR_ID", "RAT", "NEW_CALL_ATTEMPTS", "NEW_ANSWERED_CALLS",
