@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://calista-docs.com/services/spark/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://calista-docs.com/services/hardware/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Spark - Calista Documentation</title>
+    <title>Hardware - Calista Documentation</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Spark";
-        var mkdocs_page_input_path = "services/spark.md";
-        var mkdocs_page_url = "/services/spark/";
+        var mkdocs_page_name = "Hardware";
+        var mkdocs_page_input_path = "services/hardware.md";
+        var mkdocs_page_url = "/services/hardware/";
       </script>
     
     <script src="../../js/jquery-3.6.0.min.js" defer></script>
@@ -56,20 +56,12 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../usage/3_mind_interface/">Interfacing with MIND</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../hardware/">Hardware</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Hardware</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Spark</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#web-apis">Web APIs</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../spark/">Spark</a>
                 </li>
               </ul>
               <ul>
@@ -98,7 +90,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Spark</li>
+      <li>Hardware</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -107,16 +99,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="spark">Spark</h1>
-<h2 id="overview">Overview</h2>
-<h2 id="web-apis">Web APIs</h2>
-<h2 id="examples">Examples</h2>
+                <p>3 Infrastructure
+A functioning computer cluster is a complicated collection of services and pro-
+grams that needs to be properly setup and configured. Clouds are common
+today where the user rarely have not need to care about the specifics off hard-
+ware or networking, so called managed services. This cluster is on-premise,
+meaning that we are responsible for everything ourselves. How can we roughly
+divide the different parts of the cluster?</p>
+<p>3.1 Hardware
+Maybe just say desktop computers instead of HP EliteDesk? 10 HP EliteDesk
+800 G3 TWR desktop computers with 32GiB ram, Intel Core i7-7700 CPU @
+3.60GHz. Quad core.
+The processor was released in 2017 and is part of Intel’s 7th generation of Core
+processors.
+Each have roughly 8TB of internal disk memory with some variations due to
+hardware availability. The Ubuntu Server (22.04.02)? operating system is in-
+stalled on a 500GiB SSD. All in all the system has roughly 70TB+ of usable
+disk space.
+Complementing the setup are two Intel NUC8i5BEK mini PCs with 32Gib ram,
+Intel Core i5-8258U CPU @ 2.30GHz quadcore, with a 500GiB SSD disk. Re-
+leased in 2018.</p>
+<p>3.2 Provisioning: Ansible
+Ansible is an open-source automation tool used for managing and configuring
+systems. Our use case lies in provisioning and configuration management. By
+distributing the correct networking information and credentials, mounting cifs
+shares, installing software: java, spark, hadoop, while sending out configuration
+files to each node and allocating available disk space to the distributed file
+system.
+This is done by writing an Ansible playbook which contains a series of tasks
+you wish for the nodes to complete.</p>
+<p>3.3 Compute: Spark (with YARN)
+Apache Spark is an open-source distributed computing engine for processing
+large distributed datasets. It support multiple high-level APIs for languages
+such as Scala, Python, Java, and R. It also works with regular SQL queries.
+Configuration.</p>
+<p>3.4 Store: hdfs (with delta)
+Hadoop Distributed File System works by dividing data into blocks that are
+replicated across a cluster, ensuring high-availability and fault tolerance</p>
+<p>3 Mobile network data
+https://en.wikipedia.org/wiki/Mobility management
+https://en.wikipedia.org/wiki/Location area identity
+3rd Generation Partnership Project; Technical Specification Group Core Net-
+work and Terminals; Numbering, addressing and identification (Release 9)
+The data consist of mobile network data where each entry represents a con-
+nection between a cellular device and some kind of an antenna. The schema is
+pretty complicated but to highlight the columns of interest:
+Timestamp: The time when the data was collected. The discretization is down
+to a couple of minutes.
+IMSI: International Mobile Subscriber Identity, a unique identifier for the cel-
+lular device stored on the SIM card. In practice this number is transmitted as
+rarely as possible and instead a random temporary number is assigned. (source?)
+MCC: Mobile country code. A three digit code which shows from which country
+the operator of the subscriber is based. Hence if you are subscribed to an Italian
+mobile operator your MCC is 222 and will be logged as such even if you travel
+abroads. (source?)
+LAC:
+3.1 What: example, how much
+3.2 Schema: IMSI, LAC, SAC, TAC, E-NODE, SECTOR
+3.3 Some stats: counts, log-times, proportions</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../hardware/" class="btn btn-neutral float-left" title="Hardware"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../hadoop/" class="btn btn-neutral float-right" title="Hadoop">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../usage/3_mind_interface/" class="btn btn-neutral float-left" title="Interfacing with MIND"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../spark/" class="btn btn-neutral float-right" title="Spark">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -139,10 +185,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../hardware/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../../usage/3_mind_interface/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../hadoop/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../spark/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
